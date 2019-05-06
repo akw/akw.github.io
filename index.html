@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<script type="text/javascript">
+  var slides = [];
+  var current_idx = 0;
+  var duration = 8 * 1000;
+  var show_timer;
+  var images = []
+  var imageMap = []
+  window.onload = () => init()
+  let shouldShow = false
+  let element = (id) => document.getElementById(id)
+  let contentDiv = () => document.getElementById('content')
+  let setTitles = (html) => element("titles").innerHTML = html
+  let setTitleFromSlide = (i) => element('title').innerHTML = title(i)
+  let linkTag = (id) => `<a href="javascript:play('${id}')">${title(id)}</${'a'}><br/>\n`
+  let title = (i) => (slides[i] == null || slides[i].length==1) ? 'pic' : `${i+1}: ${slides[i][1]}`
+  let showPlay = (isPlay) => {
+    document.getElementById('play').style.display = isPlay ? 'none' : "block"
+    document.getElementById('pause').style.display = isPlay ? 'block' : "none";
+  }
+
+  function init(e) {
+    if (window.location.search=='?common') {
+      shouldShow = true
+    }
+    images = []
+    if (e!=null) {
+      pause()
+      current_idx = 0
+      slides = []
+      let list = ""
+      let open = ""
+      let count = 0
+      e.srcElement.value.split("\n").forEach( x => {
+        let record = parse(x, count)
+
+        if (record.link == null || record.link == '') {
+          return
+        }
+        let current = count
+        count += 1
+        slides.push([record.link, record.title])
+        list += record.hash + "\n\n"
+        open += record.link + ' ' + record.title + "\n"
+      });
+      console.log("\n" + open);
+      document.getElementById("entries").value = list.replace(/\n\n$/, '');
+    }
+
+    let count = 0
+    slides.forEach( x => {
+      count += 1
+      if (x == null || x.length == 0) { return }
+      let image = new Image()
+      image.src = x[0]
+      let current = count - 1
+      image.onload = () => images[current] = image
+      images.push('')
+    })
+
+    var html = "";
+    for(idx=0; idx<slides.length; idx++) {
+      html += linkTag(idx)
+    }
+    setTitles(html)
+    if (e!=null) { play(1) }
+  }
+
+  function parse(line, count) {
+    let record = line.trim()
+    let link, title
+
+    if (record.startsWith('aHR0c')) {
+      record = atob(record)
+    } else if (shouldShow && record.startsWith('HR0c')) {
+      record = atob('a' + record)
+    }
+
+    link = (record.indexOf(' ') < 0) ? record : record.substr(0, record.indexOf(' '))
+    title = (record.indexOf(' ') < 0) ? 'pic' : record.substr(record.indexOf(' ')+1).trim()
+    hash = btoa(link + ' ' + title).substr(1)
+    return ({link: link, title: title, hash: hash})
+  }
+
+  function pause() {
+    clearTimeout(show_timer);
+    showPlay(false)
+  }
+
+  function clearImage() {
+    let content = contentDiv()
+    while (content.firstChild) {
+      content.removeChild(content.firstChild);
+    }
+  }
+
+  function showImage(index, isPaused=true) {
+    if (slides.length > index && slides[index].length > 0 && typeof(images[index])=='object') {
+      clearImage()
+      images[index].className = "fadeIn"
+      contentDiv().appendChild(images[index])
+      setTitleFromSlide(index)
+    }
+    showPlay(isPaused)
+    show_timer = setTimeout("play()", duration);
+  }
+
+  function play(slide_idx) {
+    clearTimeout(show_timer);
+    current_idx = slide_idx || current_idx
+    showImage(current_idx)
+    current_idx = (current_idx+1) % slides.length;
+  }
+</script>
+<style>
+  #menu {
+    font-family:Arial;
+    font-size:9pt;
+    display:block;
+    width: 100%;
+    float: right;
+    margin: 10px;
+    display: block;
+    background-color:#000000;
+    color:#FFFFFF;
+    border:3px solid #333333;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  @keyframes fadeIn {
+   0% {opacity: 0;}
+   100% {opacity: 1;}
+  }
+  .fadeIn { animation-name: fadeIn; animation-duration: 0.75s; }
+ #sidebar { width: 20%; float: right; display: block; }
+  #main { width: 80%; float: left; display: block; }
+  body.siteshow { margin:0; padding:0; background-color:#000000; } /* Change body background-color to change fade out color. */
+  #oldcontent img {min-width: 50%; max-width: 80%;}
+  #content img {max-height: 750px;}
+  #entries { width: 98%; }
+  #menu a { color:#ffffff; }
+  #menu a:hover { text-decoration:none; }
+  #titles { padding-top: 15px; }
+  #title { font-size:11pt; font-weight:bold; letter-spacing:2; }
+  #slides { font-size:9pt; line-height:16pt; }
+  .button { width:60px; font-size:9pt; letter-spacing:1; }
+</style>
+<meta http-equiv="content-type" content="text/html; charset=windows-1250">
+</head>
+<body class="siteshow">
+  <div id="main"> <div id="content" style="width:100%; height:100%;"></div> </div>
+  <div id="sidebar">
+    <div id="menu">
+      <div id="title">SiteShow Menu</div>
+      <p>
+        <input id="pause" class="button" style="display:none;" type="button" value="pause" onclick="pause()" />
+        <input id="play" class="button" style="display:none;" type="button" value="play" onclick="play()" />
+      </p>
+      <textarea id='entries' onchange="init(event)" rows=2> </textarea>
+      <div id="titles"> </div>
+    </div>
+  </div>
+</body>
+</html>
