@@ -24,7 +24,6 @@
 
   function linkTag(id) {
     let tag = `<a href="javascript:play('${id}')">${title(id)}</${'a'}><br/>\n`
-    alert(slides[id][1].split(' ')[1].toLowerCase())
     if (slides[id] != null && slides[id][1].split(' ')[1].toLowerCase().startsWith('video')) {
       tag = `<a target="_blank" href="${slideLink(id)}">${title(id)}</${'a'}><br/>\n`
     }
