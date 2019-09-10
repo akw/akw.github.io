@@ -14,11 +14,20 @@
   let contentDiv = () => document.getElementById('content')
   let setTitles = (html) => element("titles").innerHTML = html
   let setTitleFromSlide = (i) => element('title').innerHTML = title(i)
-  let linkTag = (id) => `<a href="javascript:play('${id}')">${title(id)}</${'a'}><br/>\n`
+  //let linkTag = (id) => `<a href="javascript:play('${id}')">${title(id)}</${'a'}><br/>\n`
   let title = (i) => (slides[i] == null || slides[i].length==1) ? 'pic' : `${i+1}: ${slides[i][1]}`
+  let slideLink = (i) => (slides[i] == null) ? 'http://google.com' : slides[i][0]
   let showPlay = (isPlay) => {
     document.getElementById('play').style.display = isPlay ? 'none' : "block"
     document.getElementById('pause').style.display = isPlay ? 'block' : "none";
+  }
+
+  function linkTag(id) {
+    let tag = `<a href="javascript:play('${id}')">${title(id)}</${'a'}><br/>\n`
+    if (slides[id] != null && slides[id][1].toLowerCase().startsWith('video')) {
+      tag = `<a target="_blank" href="${slideLink(id)}">${title(id)}</${'a'}><br/>\n`
+    }
+    return tag
   }
 
   function init(e) {
