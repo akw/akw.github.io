@@ -27,7 +27,6 @@
     if (slides[id] != null && slides[id][1] != null) {
       let videoTag = slides[id][1].split(' ')
       if (videoTag.length > 1) {
-        alert(videoTag[1])
         if (videoTag[1].toLowerCase().startsWith('video')) {
           tag = `<a target="_blank" href="${slideLink(id)}">${title(id)}</${'a'}><br/>\n`
         }
