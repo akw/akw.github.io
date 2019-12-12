@@ -36,7 +36,8 @@
   }
 
   function init(e) {
-    if (window.location.search=='?common') {
+    const type = window.location.search
+    if (type =='?common' || type == '?raw') {
       shouldShow = true
     }
     images = []
@@ -48,7 +49,6 @@
       let open = ""
       let count = 0
       e.srcElement.value.split("\n").forEach( x => {
-        alert(`x "${x}"`)
         let record = parse(x, count)
 
         if (record.link == null || record.link == '') {
@@ -57,8 +57,12 @@
         let current = count
         count += 1
         slides.push([record.link, record.title])
-        list += record.hash + "\n\n"
         open += record.link + ' ' + record.title + "\n"
+        if (type === '?raw') {
+          list += open + "\n"
+        } else {
+          list += record.hash + "\n\n"
+        }
       });
       console.log("\n" + open);
       document.getElementById("entries").value = list.replace(/\n\n$/, '');
