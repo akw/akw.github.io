@@ -57,9 +57,9 @@
         let current = count
         count += 1
         slides.push([record.link, record.title])
-        open += record.link + ' ' + record.title + "\n"
+        open += record.link + ' ' + record.title + "\n\n"
         if (type === '?raw') {
-          list += open + "\n"
+          list = open + "\n"
         } else {
           list += record.hash + "\n\n"
         }
