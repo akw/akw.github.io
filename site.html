@@ -48,6 +48,7 @@
       let open = ""
       let count = 0
       e.srcElement.value.split("\n").forEach( x => {
+        alert(`x "${x}"`)
         let record = parse(x, count)
 
         if (record.link == null || record.link == '') {
