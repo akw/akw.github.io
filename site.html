@@ -58,14 +58,14 @@
         count += 1
         slides.push([record.link, record.title])
         open += record.link + ' ' + record.title + "\n\n"
-        if (type === '?raw') {
-          list = open + "\n"
-        } else {
-          list += record.hash + "\n\n"
-        }
+        list += record.hash + "\n\n"
       });
       console.log("\n" + open);
-      document.getElementById("entries").value = list.replace(/\n\n$/, '');
+      if (type === '?raw') {
+        document.getElementById("entries").value = open.replace(/\n\n$/, '');
+      } else {
+        document.getElementById("entries").value = list.replace(/\n\n$/, '');
+      }
     }
 
     let count = 0
@@ -177,7 +177,7 @@
         <input id="pause" class="button" style="display:none;" type="button" value="pause" onclick="pause()" />
         <input id="play" class="button" style="display:none;" type="button" value="play" onclick="play()" />
       </p>
-      <textarea id='entries' onchange="init(event)" rows=2> </textarea>
+      <textarea id='entries' onchange="init(event)" rows=4> </textarea>
       <div id="titles"> </div>
     </div>
   </div>
