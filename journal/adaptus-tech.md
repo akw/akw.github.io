@@ -4,6 +4,22 @@
 
 # General journal
 
+## Architectural Decision Records
+*2022-11-16*
+
+I've been trying to decide the right way to document architectural considerations and decisions and stumbled across some thought in this area.
+There are top level statements that fit into how I document systems. See (https://adr.github.io/). In particular, the Y-statement (short form):
+
+```
+In the context of <use case/user story u>, facing <concern c> we decided for <option o> to achieve <quality q>, accepting <downside d>.
+```
+
+And the long form:
+
+```
+In the context of <use case/user story u>, facing <concern c> we decided for <option o> and neglected <other options>, to achieve <system qualities/desired consequences>, accepting <downside d/undesired consequences>, because <additional rationale>.
+```
+
 ## sysbox
 *2022-11-16*
 
