@@ -1,11 +1,26 @@
-# Eliminate media server?
+# Home Technology Journal
+
+This document describes what I have done and what I am working related to the technology around the house at 513 S Randall.
+
+# Topics
+
+# Log
+Reverse cronological notes. If a topic is ongoing, it should be extracted into its own document and linked above.
+
+## autossh keeps closing
+*2022-11-18*
+
+`autossh` keeps closing. I found an [article](https://askubuntu.com/questions/217513/how-to-prevent-autossh-from-becoming-stuck-once-in-a-while) and I tried to update the command to prevent it from hanging up. I also put a command into `vitl`, my dev environment project.
+
+
+## Eliminate media server?
 *2022-11-08*
 
-## Background
+### Background
 
 I think that one of the drives (photos) is dying and making a death rattle. I had bought a new drive and was just thinking that I would replace it. Then starting 11/7, it seems like I couldn't log into the server even after reboot. I've decided that since no one else really uses plex, I can move plex to my adaptus laptop and just sell the media server.
 
-## Layout
+### Layout
 
 Drive attached to office router:
 
@@ -25,7 +40,7 @@ Backup drive attached to laptop
 - media drive backup
 - feature music backup?
 
-## Open questions
+### Open questions
 
 - maybe Cindy should have her own backup drive?
 - OPTION: direct attached drive
@@ -38,7 +53,7 @@ Backup drive attached to laptop
   - PROS: standard technology
 - OPTION: icloud backup
 
-## Notes
+### Notes
 
 Time capsule was discontinued. Networked time machine relies on another mac being present. I think we might need to do time machine on an interim basis and doing rsync maybe to a network drive or to alex's laptop.
 
