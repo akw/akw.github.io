@@ -41,3 +41,47 @@ Backup drive attached to laptop
 ## Notes
 
 Time capsule was discontinued. Networked time machine relies on another mac being present. I think we might need to do time machine on an interim basis and doing rsync maybe to a network drive or to alex's laptop.
+
+*2022-11-17*
+
+Okay, I've got a new backup drive and moved the photos and videos and I'm undecided about music and I've put them in the media drive and then started developing a launch daemon to run a script to run rsync to make sure the photo backup is up to date.
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html#//apple_ref/doc/uid/10000172i-SW7-BCIEDDBJ -->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.adaptus.rsync-media</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>touch</string>
+        <string>/tmp/helloworld</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Minute</key>
+        <integer>00</integer>
+        <key>Hour</key>
+        <integer>03</integer>
+    </dict>
+</dict>
+</plist>
+```
+
+I have an rsync script that does the actual copy:
+
+```
+#!/bin/bash
+sudo rsync -av --progress --delete /Volumes/Media-2022-11-11/ /Volumes/backup-Media-2012
+# see what failed
+#sudo rsync -av --dry-run --delete-after /Volumes/Media-2022-11-11/ /Volumes/backup-Media-2012
+```
+
+Now I'm also trying to reinstall the OS on the media machine so that I can disconnect it from the network and sell it. I want to attach the ssd to the router to try to have movies always available for running plex on the laptop to be able to watch them on the tv when we want to do that.
+
+I also might want to add a drive to the router to support the time machine if that works.
+
+I might want rsync to run on Cindy's machine or Fiona's to just get the documents stored somewhere safe.
+
