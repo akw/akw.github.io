@@ -1,3 +1,3 @@
 # akw.github.io
 
-this is a test directory
+[home-tech](/journal/home-tech.md)
