@@ -7,6 +7,15 @@ This document describes what I have done and what I am working related to the te
 # Log
 Reverse cronological notes. If a topic is ongoing, it should be extracted into its own document and linked above.
 
+## More features for vitl
+*2022-12-06*
+
+There's a docker image that might be a nice way to run autossh, if that's what I need to do
+
+```
+https://github.com/sbaerlocher/docker.autossh
+```
+
 ## autossh keeps closing
 *2022-11-18*
 
