@@ -7,6 +7,14 @@ This document describes what I have done and what I am working related to the te
 # Log
 Reverse cronological notes. If a topic is ongoing, it should be extracted into its own document and linked above.
 
+## docker-compose in vitl
+*2022-12-08*
+
+Trying to fix up vitl. Add docker-compose direct
+
+https://gist.github.com/npearce/6f3c7826c7499587f00957fee62f8ee9
+
+
 ## More features for vitl
 *2022-12-06*
 
@@ -15,6 +23,19 @@ There's a docker image that might be a nice way to run autossh, if that's what I
 ```
 https://github.com/sbaerlocher/docker.autossh
 ```
+
+here's a full dev environment built as a docker container
+
+```
+https://github.com/akw/akw.github.io/blob/journals/journal/home-tech.md
+```
+
+vitl has problems running things in docker. But I think that is from the lack of all the directories mounted into the vitl. I'm hoping that mounting them all will solve those problems. 
+
+- `/app`
+- `/files`
+
+The alternative is to make tools that are all to be run on the host. Is that even possible?
 
 ## autossh keeps closing
 *2022-11-18*
