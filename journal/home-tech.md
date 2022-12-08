@@ -7,6 +7,11 @@ This document describes what I have done and what I am working related to the te
 # Log
 Reverse cronological notes. If a topic is ongoing, it should be extracted into its own document and linked above.
 
+## Notes
+*2022-12-08*
+
+`vitl` needs to be started from home directory. which is awkward. Maybe should change it to start it from the home directory automatically, but then either it needs to be installed in the same place, or I need to figure out the location where the script is
+
 ## docker-compose in vitl
 *2022-12-08*
 
