@@ -4,6 +4,11 @@
 
 # General journal
 
+## Trying to use the latest aws linux 2022 with docker and docker compose v2
+*2022-12-09*
+
+https://stackoverflow.com/questions/70358656/rhel8-fedora-yum-dns-causes-cannot-download-repodata-repomd-xml-for-docker-ce
+
 ## Architectural Decision Records
 *2022-11-16*
 
