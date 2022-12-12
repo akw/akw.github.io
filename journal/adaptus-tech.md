@@ -4,6 +4,13 @@
 
 # General journal
 
+## docker restarting in amazon linux
+*2022-12-12*
+
+`sudo service docker restart`
+
+https://forums.docker.com/t/failure-to-start-docker-on-an-amazon-linux-machine/44003
+
 ## Trying to use the latest aws linux 2022 with docker and docker compose v2
 *2022-12-09*
 
