@@ -8,6 +8,11 @@ This document describes what I have done and what I am working related to the te
 Reverse cronological notes. If a topic is ongoing, it should be extracted into its own document and linked above.
 
 ## Notes
+*2022-12-14*
+
+I've moved all of my documents on my laptop into a directory sync'd to google drive. I don't know if I'm going to hate this. And I'm pretty sure it's how I managed to delete all of my old vidoes by mistake, but I'm going to try it again. I still don't have a good way to do upgrades, and I still hate physical computers, but I'm going to do it so that it's a little easier to move files from one computer to another.
+
+## Notes
 *2022-12-08*
 
 `vitl` needs to be started from home directory. which is awkward. Maybe should change it to start it from the home directory automatically, but then either it needs to be installed in the same place, or I need to figure out the location where the script is
