@@ -14,7 +14,7 @@ Use the following settings by default:
 |Orientation|Vertical|
 |Fixed diagram position|X|
 |Hide position| |
-|Height|6|
+|Height|7|
 |Finger size|10|
 |Finger font size|20|
 |Stroke width|11|
