@@ -15,8 +15,8 @@ Use the following settings by default:
 |Fixed diagram position|X|
 |Hide position| |
 |Height|7|
-|Finger size|10|
-|Finger font size|20|
+|Finger size|20|
+|Finger font size|30|
 |Stroke width|11|
 |Color|Black|
 |Background color|White|
