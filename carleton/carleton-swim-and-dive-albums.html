@@ -4,7 +4,164 @@
 					<head>
 						<meta charset="UTF-8"/>
 						<meta name="viewport" content="width=device-width, initial-scale=1"/>
-						<style>pre code.hljs {
+						<script>/*! For license information please see sorttable.js.LICENSE.txt */
+function applySorting(t){sourceLine=parseInt(t.getAttribute("source-line")),rows=[],message=""+sourceLine;for(var e=0;e<t.tBodies[0].rows.length;e++)row=t.tBodies[0].rows[e].dataset.rowIdx,rows.push(parseInt(row)),message=message+","+row;webviewApi.postMessage("sortableMdTable",message)}document.addEventListener("joplin-noteDidUpdate",()=>{forEach(document.getElementsByTagName("table"),function(t,e){-1!=t.className.search(/\bsortable\b/)&&sorttable.makeSortable(t,e)})});var stIsIE=!1;if(sorttable={init:function(){arguments.callee.done||(arguments.callee.done=!0,_timer_sorttable&&clearInterval(_timer_sorttable),document.createElement&&document.getElementsByTagName&&(sorttable.DATE_RE=/^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/,forEach(document.getElementsByTagName("table"),function(t,e){-1!=t.className.search(/\bsortable\b/)&&sorttable.makeSortable(t,e)})))},makeSortable:function(t,e){if(0==t.getElementsByTagName("thead").length&&(the=document.createElement("thead"),the.appendChild(t.rows[0]),t.insertBefore(the,t.firstChild)),null==t.tHead&&(t.tHead=t.getElementsByTagName("thead")[0]),1==t.tHead.rows.length){tfoot=document.createElement("tfoot"),btnA=document.createElement("a"),btnA.className="sortable-apply",btnA.textContent="Apply Sorting!",btnA.href="#",btnA.onclick=function(){applySorting(t)},tfoot.appendChild(btnA),t.appendChild(tfoot);for(var r=0;r<t.tBodies[0].rows.length;r++)t.tBodies[0].rows[r].dataset.rowIdx=r;for(sortbottomrows=[],r=0;r<t.rows.length;r++)-1!=t.rows[r].className.search(/\bsortbottom\b/)&&(sortbottomrows[sortbottomrows.length]=t.rows[r]);if(sortbottomrows){for(null==t.tFoot&&(tfo=document.createElement("tfoot"),t.appendChild(tfo)),r=0;r<sortbottomrows.length;r++)tfo.appendChild(sortbottomrows[r]);delete sortbottomrows}for(headrow=t.tHead.rows[0].cells,r=0;r<headrow.length;r++)headrow[r].className.match(/\bsorttable_nosort\b/)||(mtch=headrow[r].className.match(/\bsorttable_([a-z0-9]+)\b/),mtch&&(override=mtch[1]),mtch&&"function"==typeof sorttable["sort_"+override]?headrow[r].sorttable_sortfunction=sorttable["sort_"+override]:headrow[r].sorttable_sortfunction=sorttable.guessType(t,r),headrow[r].sorttable_columnindex=r,headrow[r].sorttable_tbody=t.tBodies[0],dean_addEvent(headrow[r],"click",sorttable.innerSortFunction=function(t){if(-1!=this.className.search(/\bsorttable_sorted\b/))return sorttable.reverse(this.sorttable_tbody),this.className=this.className.replace("sorttable_sorted","sorttable_sorted_reverse"),this.removeChild(document.getElementById(e+"_sorttable_sortfwdind")),sortrevind=document.createElement("span"),sortrevind.id=e+"_sorttable_sortrevind",sortrevind.innerHTML=stIsIE?'&nbsp<font face="webdings">5</font>':" ▼",void this.appendChild(sortrevind);if(-1!=this.className.search(/\bsorttable_sorted_reverse\b/))return sorttable.reverse(this.sorttable_tbody),this.className=this.className.replace("sorttable_sorted_reverse","sorttable_sorted"),this.removeChild(document.getElementById(e+"_sorttable_sortrevind")),sortfwdind=document.createElement("span"),sortfwdind.id=e+"_sorttable_sortfwdind",sortfwdind.innerHTML=stIsIE?'&nbsp<font face="webdings">6</font>':" ▲",void this.appendChild(sortfwdind);theadrow=this.parentNode,forEach(theadrow.childNodes,function(t){1==t.nodeType&&(t.className=t.className.replace("sorttable_sorted_reverse",""),t.className=t.className.replace("sorttable_sorted",""))}),sortfwdind=document.getElementById(e+"_sorttable_sortfwdind"),sortfwdind&&sortfwdind.parentNode.removeChild(sortfwdind),sortrevind=document.getElementById(e+"_sorttable_sortrevind"),sortrevind&&sortrevind.parentNode.removeChild(sortrevind),this.className+=" sorttable_sorted",sortfwdind=document.createElement("span"),sortfwdind.id=e+"_sorttable_sortfwdind",sortfwdind.innerHTML=stIsIE?'&nbsp<font face="webdings">6</font>':" ▲",this.appendChild(sortfwdind),row_array=[],col=this.sorttable_columnindex,rows=this.sorttable_tbody.rows;for(var r=0;r<rows.length;r++)row_array[row_array.length]=[sorttable.getInnerText(rows[r].cells[col]),rows[r]];for(row_array.sort(this.sorttable_sortfunction),tb=this.sorttable_tbody,r=0;r<row_array.length;r++)tb.appendChild(row_array[r][1]);delete row_array}))}},guessType:function(t,e){sortfn=sorttable.sort_alpha;for(var r=0;r<t.tBodies[0].rows.length;r++)if(text=sorttable.getInnerText(t.tBodies[0].rows[r].cells[e]),""!=text){if(text.match(/^-?[£$¤]?[\d,.]+%?$/))return sorttable.sort_numeric;if(possdate=text.match(sorttable.DATE_RE),possdate){if(first=parseInt(possdate[1]),second=parseInt(possdate[2]),first>12)return sorttable.sort_ddmm;if(second>12)return sorttable.sort_mmdd;sortfn=sorttable.sort_ddmm}}return sortfn},getInnerText:function(t){if(!t)return"";if(hasInputs="function"==typeof t.getElementsByTagName&&t.getElementsByTagName("input").length,null!=t.getAttribute("sorttable_customkey"))return t.getAttribute("sorttable_customkey");if(void 0!==t.textContent&&!hasInputs)return t.textContent.replace(/^\s+|\s+$/g,"");if(void 0!==t.innerText&&!hasInputs)return t.innerText.replace(/^\s+|\s+$/g,"");if(void 0!==t.text&&!hasInputs)return t.text.replace(/^\s+|\s+$/g,"");switch(t.nodeType){case 3:if("input"==t.nodeName.toLowerCase())return t.value.replace(/^\s+|\s+$/g,"");case 4:return t.nodeValue.replace(/^\s+|\s+$/g,"");case 1:case 11:for(var e="",r=0;r<t.childNodes.length;r++)e+=sorttable.getInnerText(t.childNodes[r]);return e.replace(/^\s+|\s+$/g,"");default:return""}},reverse:function(t){newrows=[];for(var e=0;e<t.rows.length;e++)newrows[newrows.length]=t.rows[e];for(e=newrows.length-1;e>=0;e--)t.appendChild(newrows[e]);delete newrows},sort_numeric:function(t,e){return aa=parseFloat(t[0].replace(/[^0-9.-]/g,"")),isNaN(aa)&&(aa=0),bb=parseFloat(e[0].replace(/[^0-9.-]/g,"")),isNaN(bb)&&(bb=0),aa-bb},sort_alpha:function(t,e){return t[0].toLowerCase()==e[0].toLowerCase()?0:t[0].toLowerCase()<e[0].toLowerCase()?-1:1},sort_ddmm:function(t,e){return mtch=t[0].match(sorttable.DATE_RE),y=mtch[3],m=mtch[2],d=mtch[1],1==m.length&&(m="0"+m),1==d.length&&(d="0"+d),dt1=y+m+d,mtch=e[0].match(sorttable.DATE_RE),y=mtch[3],m=mtch[2],d=mtch[1],1==m.length&&(m="0"+m),1==d.length&&(d="0"+d),dt2=y+m+d,dt1==dt2?0:dt1<dt2?-1:1},sort_mmdd:function(t,e){return mtch=t[0].match(sorttable.DATE_RE),y=mtch[3],d=mtch[2],m=mtch[1],1==m.length&&(m="0"+m),1==d.length&&(d="0"+d),dt1=y+m+d,mtch=e[0].match(sorttable.DATE_RE),y=mtch[3],d=mtch[2],m=mtch[1],1==m.length&&(m="0"+m),1==d.length&&(d="0"+d),dt2=y+m+d,dt1==dt2?0:dt1<dt2?-1:1},shaker_sort:function(t,e){for(var r=0,o=t.length-1,n=!0;n;){n=!1;for(var s=r;s<o;++s)if(e(t[s],t[s+1])>0){var a=t[s];t[s]=t[s+1],t[s+1]=a,n=!0}if(o--,!n)break;for(s=o;s>r;--s)e(t[s],t[s-1])<0&&(a=t[s],t[s]=t[s-1],t[s-1]=a,n=!0);r++}}},document.addEventListener&&document.addEventListener("DOMContentLoaded",sorttable.init,!1),/WebKit/i.test(navigator.userAgent))var _timer_sorttable=setInterval(function(){/loaded|complete/.test(document.readyState)&&sorttable.init()},10);function dean_addEvent(t,e,r){if(t.addEventListener)t.addEventListener(e,r,!1);else{r.$$guid||(r.$$guid=dean_addEvent.guid++),t.events||(t.events={});var o=t.events[e];o||(o=t.events[e]={},t["on"+e]&&(o[0]=t["on"+e])),o[r.$$guid]=r,t["on"+e]=handleEvent}}function removeEvent(t,e,r){t.removeEventListener?t.removeEventListener(e,r,!1):t.events&&t.events[e]&&delete t.events[e][r.$$guid]}function handleEvent(t){var e=!0;t=t||fixEvent(((this.ownerDocument||this.document||this).parentWindow||window).event);var r=this.events[t.type];for(var o in r)this.$$handleEvent=r[o],!1===this.$$handleEvent(t)&&(e=!1);return e}function fixEvent(t){return t.preventDefault=fixEvent.preventDefault,t.stopPropagation=fixEvent.stopPropagation,t}window.onload=sorttable.init,dean_addEvent.guid=1,fixEvent.preventDefault=function(){this.returnValue=!1},fixEvent.stopPropagation=function(){this.cancelBubble=!0},Array.forEach||(Array.forEach=function(t,e,r){for(var o=0;o<t.length;o++)e.call(r,t[o],o,t)}),Function.prototype.forEach=function(t,e,r){for(var o in t)void 0===this.prototype[o]&&e.call(r,t[o],o,t)},String.forEach=function(t,e,r){Array.forEach(t.split(""),function(o,n){e.call(r,o,n,t)})};var forEach=function(t,e,r){if(t){var o=Object;if(t instanceof Function)o=Function;else{if(t.forEach instanceof Function)return void t.forEach(e,r);"string"==typeof t?o=String:"number"==typeof t.length&&(o=Array)}o.forEach(t,e,r)}};</script></script><style>table {
+  position: relative;
+}
+
+table th {
+  cursor: pointer;
+}
+
+table tfoot {
+  position: absolute;
+  top: -24px;
+  text-align: right;
+  width: 100%;
+  visibility: hidden;
+}
+
+table:hover tfoot {
+  visibility: visible;
+}
+
+a.sortable-apply {
+  padding: 4px;
+}
+
+#rendered-md table:first-child {
+  margin-top: 24px !important;
+}</style><style>#joplinTagLinksFooter {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#joplinTagLinksFooter a {
+  font-size: 12px;
+  font-family: Roboto;
+  padding: 4px 10px;
+  background-color: rgb(244, 245, 246);
+  color: rgb(115, 133, 152);
+  margin-right: 2px;
+  border-radius: 100px;
+}
+
+#joplinTagLinksFooter a:link {
+  text-decoration: none;
+}
+
+#joplinTagLinksFooter a:visited {
+  text-decoration: none;
+}
+
+#joplinTagLinksFooter a:hover {
+  text-decoration: none;
+}
+
+#joplinTagLinksFooter a:active {
+  text-decoration: none;
+}</style><script>const contentScriptId = "joplin-plugin-tag-links"
+const containerId = "joplinTagLinksFooter"
+
+async function joplinTagLinksRequestUpdate() {
+    webviewApi.postMessage(contentScriptId, {type:'renderTags'}).then(function(response) {
+        document.getElementById(containerId).innerHTML=response;
+    });
+}
+
+document.addEventListener('joplin-noteDidUpdate', () => {
+    joplinTagLinksRequestUpdate();
+});
+</script></script><style>span.inline-todo {
+  font-size: 90%;
+  padding: 2px 3px;
+  text-align: center;
+}
+
+span.inline-todo-assignee {
+  background-color: dodgerblue;
+  color: white;
+  border-radius: 4px;
+}
+
+span.inline-todo-date {
+  background-color: #52C41B;
+  color: white;
+  border-radius: 4px;
+}
+
+span.inline-todo-date.due {
+  background-color: orange;
+}
+
+span.inline-todo-date.overdue {
+  background-color: orangered;
+}
+
+span.inline-todo-date::before {
+  content: '🕰 ';
+}
+
+.tag {
+  position: relative;
+  top: 0;
+  z-index: 1;
+  text-align: center;
+  color: white;
+}
+
+.tag::before,
+.tag::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  transform: skew(-12deg);
+}
+
+.tag::after {
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  border-radius: 5px;
+  background: red;
+}
+
+.tag-left::after {
+  left: 0;
+}
+
+.tag-left::before {
+  left: -10px;
+}
+
+.tag-right::after {
+  background-color: #52C41B;
+  left: 0;
+}</style><style>.jsdraw--editButton {
+  display: none;
+  width: min-content;
+  max-height: 50px;
+  z-index: 1;
+  opacity: 0.9;
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.jsdraw--svgWrapper {
+  display: inline-grid;
+}
+
+.jsdraw--svgWrapper > * {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.jsdraw--svgWrapper:hover .jsdraw--editButton,
+.jsdraw--svgWrapper:focus .jsdraw--editButton,
+.jsdraw--svgWrapper:focus-within .jsdraw--editButton,
+.jsdraw--editButton:focus {
+  display: block;
+}</style><script>(()=>{"use strict";var t={167:(t,e)=>{Object.defineProperty(e,"__esModule",{value:!0}),e.default=t=>{const e=t.querySelector("img");if(!e)return void console.warn("Freehand drawing plugin: No image found in container.");if(t.classList.contains("js-draw--editable"))return;t.classList.add("js-draw--editable");const n=t.getAttribute("data-js-draw-edit-label"),o=t.getAttribute("data-js-draw-content-script-id"),s=()=>{const t=e.src;webviewApi.postMessage(o,t).catch((e=>{console.error("Error posting message!",e,"\nMessage: ",t)}))},r=document.body.classList.contains("mce-content-body")||"tinymce"===document.body.id,d="undefined"!=typeof webviewApi;r?e.style.cursor="pointer":d&&(()=>{const e=document.createElement("button");e.textContent=`${n} 🖊️`,e.classList.add("jsdraw--editButton"),t.appendChild(e),e.onclick=()=>{s()}})(),e.ondblclick=s}}},e={};function n(o){var s=e[o];if(void 0!==s)return s.exports;var r=e[o]={exports:{}};return t[o](r,r.exports,n),r.exports}(()=>{const t=n(167),e=()=>{const e=document.querySelectorAll("*[data-js-draw-content-script-id]");for(const n of e)(0,t.default)(n)};document.addEventListener("joplin-noteDidUpdate",(()=>{e()})),e()})()})();</script></script><style>pre code.hljs {
   display: block;
   overflow-x: auto;
   padding: 1em;
@@ -108,10 +265,10 @@ hue-6-2: #c18401
 .hljs-link {
   text-decoration: underline;
 }</style>
-						<title>Carleton Swim and Dive Photo Albums</title>
+						<title>carleton-swim-and-dive-albums</title>
 					</head>
 					<body>
-						<div class="exported-note"><div class="exported-note-title">Carleton Swim and Dive Photo Albums</div>
+						<div class="exported-note"><div class="exported-note-title">carleton-swim-and-dive-albums</div>
 
 <style>
 		/* https://necolas.github.io/normalize.css/ */
@@ -137,9 +294,17 @@ hue-6-2: #c18401
 			border-radius: 3px;
 			background-color: rgb(243, 243, 243);
 		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
 		::-webkit-scrollbar {
-			width: 7px;
-			height: 7px;
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
 		}
 		::-webkit-scrollbar-corner {
 			background: none;
@@ -148,14 +313,13 @@ hue-6-2: #c18401
 			border: none;
 		}
 		::-webkit-scrollbar-thumb {
-			background: rgba(100, 100, 100, 0.3); 
-			border-radius: 5px;
+			background: rgba(50, 55, 63, 0.54); 
 		}
 		::-webkit-scrollbar-track:hover {
 			background: rgba(0, 0, 0, 0.1); 
 		}
 		::-webkit-scrollbar-thumb:hover {
-			background: rgba(100, 100, 100, 0.7); 
+			background: rgba(50, 55, 63, 0.63); 
 		}
 
 		
@@ -236,6 +400,16 @@ hue-6-2: #c18401
 		li p {
 			margin-top: 0.2em;
 			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 0.25em;
+		}
+
+		dd {
+			margin-inline-start: 2.5em;
+			margin-bottom: 0.5em;
 		}
 
 		.resource-icon {
@@ -377,24 +551,26 @@ hue-6-2: #c18401
 			color: black;
 		}
 
-		.not-loaded-resource img {
-			width: 1.15em;
-			height: 1.15em;
-			background: white;
-			padding: 2px !important;
-			border-radius: 2px;
-			box-shadow: 0 1px 3px #000000aa;
-		}
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
 
-		a.not-loaded-resource img {
-			margin-right: .2em;
-		}
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
 
-		a.not-loaded-resource {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
 
 		.md-checkbox input[type=checkbox]:checked {
 			opacity: 0.7;
@@ -526,6 +702,8 @@ hue-6-2: #c18401
 				li.md-checkbox input[type=checkbox] {
 					margin-left: -1.71em;
 					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
 				}
 				
 				ul.joplin-checklist {
@@ -566,23 +744,41 @@ pre.mermaid[data-processed=true] { white-space: unset; }
 				}
 				.mermaid-export-graph > button:hover {
 					background-color: #CBDAF1 !important;
-				}</style><div id="rendered-md"><p><img src="https://akw.github.io/carleton/AKW09797-banner.jpg" alt=""/></p>
+				}
+
+						.abc-notation-block svg {
+							background-color: white;
+						}
+					</style><div id="rendered-md"><p><img src="https://akw.github.io/carleton/AKW09797-banner.jpg" alt=""/></p>
 <p><em>Alex Wong</em></p>
-<p><em>All of these photos are &copy;Alex Wong, 2023-24. If you are team member or family of a team member, feel free to download and use these photos. If you publish them on media or social media, please add photo credit to me alongside the photo.</em></p>
-<h1 id="2024-2025">2024 - 2025</h1>
+<p><em>All of these photos are &copy;Alex Wong, 2023-26. If you are team member or family of a team member, feel free to download and use these photos. If you publish them on media or social media, please add photo credit to me alongside the photo.</em></p>
+<h1 id="2025-2026">2025 - 2026</h1>
+<h2 id="events">Events</h2>
+<ul>
+<li><a data-from-md="" title="https://adobe.ly/46128Qj" href="https://adobe.ly/46128Qj">9/9 First Year Move In</a></li>
+</ul>
 <h2 id="meets">Meets</h2>
 <ul>
+<li><a data-from-md="" title="https://adobe.ly/4oaDqUb" href="https://adobe.ly/4oaDqUb">10/18 Alumni Meet</a></li>
+<li><a data-from-md="" title="https://adobe.ly/48oELl3" href="https://adobe.ly/48oELl3">12/05 Rochester Friday Prelims</a></li>
+</ul>
+<h1 id="2024-2025">2024 - 2025</h1>
+<h2 id="meets-2">Meets</h2>
+<ul>
 <li><a data-from-md="" title="https://adobe.ly/4hOAhqC" href="https://adobe.ly/4hOAhqC">11/9 at Macalester</a></li>
+<li>Rochester Invitational <a data-from-md="" title="https://adobe.ly/4g3h96Q" href="https://adobe.ly/4g3h96Q">12/5 Thursday</a></li>
+<li>Rochester Invitational <a data-from-md="" title="https://adobe.ly/3Bn6GnJ" href="https://adobe.ly/3Bn6GnJ">12/6 Friday</a></li>
+<li>Rochester Invitational <a data-from-md="" title="https://adobe.ly/3VFx0jO" href="https://adobe.ly/3VFx0jO">12/7 Saturday</a></li>
 </ul>
 <h1 id="2023-2024">2023 - 2024</h1>
-<h2 id="meets-2">Meets</h2>
+<h2 id="meets-3">Meets</h2>
 <ul>
 <li><a data-from-md="" title="https://adobe.ly/3MNmOBa" href="https://adobe.ly/3MNmOBa">11/4 Macalester</a></li>
 <li>11/30 - 12/2 Rochester Invite - <a data-from-md="" title="https://adobe.ly/414LL1b" href="https://adobe.ly/414LL1b">Day 1</a> - <a data-from-md="" title="https://adobe.ly/3Guimnq" href="https://adobe.ly/3Guimnq">Day 2</a> - <a data-from-md="" title="https://adobe.ly/3NmTGBk" href="https://adobe.ly/3NmTGBk">Day 3</a></li>
 <li><a data-from-md="" title="https://adobe.ly/3HJK405" href="https://adobe.ly/3HJK405">1/27 at St. Olaf</a></li>
 <li>2/15 - 2/17 MIAC Championships - <a data-from-md="" title="https://adobe.ly/3UOTorq" href="https://adobe.ly/3UOTorq">Day 2</a> - <a data-from-md="" title="https://adobe.ly/3Ig2JRj" href="https://adobe.ly/3Ig2JRj">Day 3</a> - <a data-from-md="" title="https://adobe.ly/3OOsFre" href="https://adobe.ly/3OOsFre">Day 4</a></li>
 </ul>
-</div></div>
+<div id="joplinTagLinksFooter"></div></div></div>
 					</body>
 				</html>
 			
